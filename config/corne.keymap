@@ -39,7 +39,7 @@
 
         screen_capture {
             bindings = <&kp LG(LS(S))>;
-            key-positions = <12 24>;
+            key-positions = <24 35>;
         };
 
         bootloader_left {
@@ -109,19 +109,19 @@
 
             label = "Raise";
             bindings = <
-  &kp TAB  &kp EXCL    &kp AT  &kp HASH   &kp DLLR  &kp PRCNT    &kp CARET   &kp AMPS  &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
-&kp LCTRL  &kp LEFT  &kp DOWN    &kp UP  &kp RIGHT     &trans    &kp MINUS  &kp EQUAL         &kp LBKT  &kp RBKT  &kp BSLH  &kp GRAVE
-&kp LSHFT    &trans    &trans    &trans     &trans     &trans    &kp UNDER   &kp PLUS         &kp LBRC  &kp RBRC  &kp PIPE   &kp BSPC
-                               &kp LGUI     &trans    &kp RET    &kp SPACE     &trans         &kp RALT
+  &kp TAB  &kp EXCL    &kp AT  &kp HASH   &kp DLLR  &kp PRCNT    &kp CARET   &kp AMPS  &kp STAR  &kp LPAR  &kp RPAR  &kp TILDE
+&kp LCTRL  &kp LEFT  &kp DOWN    &kp UP  &kp RIGHT     &trans    &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT  &kp BSLH  &kp GRAVE
+&kp LSHFT    &trans    &trans    &trans     &trans     &trans    &kp UNDER   &kp PLUS  &kp LBRC  &kp RBRC  &kp PIPE   &kp BSPC
+                               &kp LGUI     &trans    &kp RET    &kp SPACE     &trans  &kp RALT
             >;
         };
 
         numpad_layer {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &kp CLEAR  &kp N7  &kp N8  &kp N9  &kp MINUS  &kp SLASH
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &kp N4  &kp N5  &kp N6   &kp PLUS   &kp STAR
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &kp N1  &kp N2  &kp N3    &kp DOT     &trans
-                        &trans  &trans  &trans       &trans  &tog 3  &kp N0
+&trans  &trans  &kp HOME    &kp UP  &kp PG_UP  &trans    &kp CLEAR  &kp N7  &kp N8  &kp N9  &kp MINUS  &kp SLASH
+&trans  &trans  &kp LEFT    &trans  &kp RIGHT  &trans       &trans  &kp N4  &kp N5  &kp N6   &kp PLUS   &kp STAR
+&trans  &trans   &kp END  &kp DOWN  &kp PG_DN  &trans       &trans  &kp N1  &kp N2  &kp N3    &kp DOT     &trans
+                            &trans     &trans  &trans       &trans  &tog 3  &kp N0
             >;
 
             label = "Numpad";
