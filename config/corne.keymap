@@ -36,6 +36,21 @@
             bindings = <&sys_reset>;
             key-positions = <11 23 30>;
         };
+
+        screen_capture {
+            bindings = <&kp LG(LS(S))>;
+            key-positions = <12 24>;
+        };
+
+        bootloader_left {
+            bindings = <&bootloader>;
+            key-positions = <0 12 5>;
+        };
+
+        bootloader_right {
+            bindings = <&bootloader>;
+            key-positions = <11 23 6>;
+        };
     };
 
     behaviors {
