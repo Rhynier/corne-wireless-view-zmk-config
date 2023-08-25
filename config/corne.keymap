@@ -27,29 +27,9 @@
             key-positions = <15 16 39>;
         };
 
-        reset-left {
-            bindings = <&sys_reset>;
-            key-positions = <0 12 29>;
-        };
-
-        reset-right {
-            bindings = <&sys_reset>;
-            key-positions = <11 23 30>;
-        };
-
         screen_capture {
             bindings = <&kp LG(LS(S))>;
             key-positions = <24 35>;
-        };
-
-        bootloader_left {
-            bindings = <&bootloader>;
-            key-positions = <0 12 5>;
-        };
-
-        bootloader_right {
-            bindings = <&bootloader>;
-            key-positions = <11 23 6>;
         };
     };
 
@@ -62,6 +42,16 @@
             bindings =
                 <&mo 2>,
                 <&tog 3>;
+        };
+        td1: td-layer-alt {
+            compatible = "zmk,behavior-tap-dance";
+            label = "LAYER_ALT";
+            #binding-cells = <0>;
+            bindings =
+                <&mo 1>,
+                <&kp LALT>;
+
+            tapping-term-ms = <300>;
         };
     };
 
@@ -80,7 +70,7 @@
   &kp TAB  &kp Q  &kp W     &kp E  &kp R    &kp T        &kp Y  &kp U      &kp I    &kp O     &kp P   &kp ESC
 &kp LCTRL  &kp A  &kp S     &kp D  &kp F    &kp G        &kp H  &kp J      &kp K    &kp L  &kp SEMI   &kp SQT
 &kp LSHFT  &kp Z  &kp X     &kp C  &kp V    &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp BSPC
-                         &kp LGUI  &mo 1  &kp RET    &kp SPACE   &td0   &kp RALT
+                         &kp LGUI   &td1  &kp RET    &kp SPACE   &td0   &kp RALT
             >;
         };
 
@@ -119,7 +109,7 @@
         numpad_layer {
             bindings = <
 &trans  &trans  &kp HOME    &kp UP  &kp PG_UP       &trans      &kp CLEAR  &kp N7  &kp N8  &kp N9  &kp MINUS  &kp SLASH
-&trans  &trans  &kp LEFT    &trans  &kp RIGHT       &trans         &trans  &kp N4  &kp N5  &kp N6   &kp PLUS   &kp STAR
+&trans  &trans  &kp LEFT  &kp DOWN  &kp RIGHT       &trans         &trans  &kp N4  &kp N5  &kp N6   &kp PLUS   &kp STAR
 &trans  &trans   &kp END  &kp DOWN  &kp PG_DN  &bootloader    &bootloader  &kp N1  &kp N2  &kp N3    &kp DOT     &trans
                             &trans     &trans       &trans         &trans  &tog 3  &kp N0
             >;
