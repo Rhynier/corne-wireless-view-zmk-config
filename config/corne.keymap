@@ -8,6 +8,21 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 
+/* Layers */
+#define U_BASE   0
+#define U_EXTRA  1
+#define U_TAP    2
+#define U_BUTTON 3
+#define U_NAV    4
+#define U_MOUSE  5
+#define U_MEDIA  6
+#define U_NUM    7
+#define U_SYM    8
+#define U_FUN    9
+
+#define U_MT(MOD, TAP) &u_mt MOD TAP
+#define U_LT(LAYER, TAP) &u_lt LAYER TAP
+
 / {
     combos {
         compatible = "zmk,combos";
@@ -27,68 +42,54 @@
             key-positions = <15 16 39>;
         };
 
-        reset-left {
-            bindings = <&sys_reset>;
-            key-positions = <0 12 29>;
-        };
-
-        reset-right {
-            bindings = <&sys_reset>;
-            key-positions = <11 23 30>;
-        };
-
         screen_capture {
             bindings = <&kp LG(LS(S))>;
             key-positions = <12 24>;
         };
-
-        bootloader_left {
-            bindings = <&bootloader>;
-            key-positions = <0 12 5>;
-        };
-
-        bootloader_right {
-            bindings = <&bootloader>;
-            key-positions = <11 23 6>;
-        };
     };
 
     behaviors {
-        td0: td_alt_layer {
-            compatible = "zmk,behavior-tap-dance";
-            label = "L2_3";
-            #binding-cells = <0>;
-            tapping-term-ms = <400>;
-            bindings = <&mo 2>, <&tog 3>;
+        u_mt: u_mt {
+        compatible = "zmk,behavior-hold-tap";
+        label = "u_mt";
+        #binding-cells = <2>;
+        tapping_term_ms = <220>;
+        quick-tap-ms = <250>;
+        flavor = "tap-preferred";
+        bindings = <&kp>, <&kp>;
+        };
+
+        u_lt: u_lt {
+        compatible = "zmk,behavior-hold-tap";
+        label = "u_lt";
+        #binding-cells = <2>;
+        tapping_term_ms = <220>;
+        quick-tap-ms = <250>;
+        flavor = "tap-preferred";
+        bindings = <&mo>, <&kp>;
         };
     };
 
+    // -----------------------------------------------------------------------------------------
+    // |  TAB |   1  |   2  |   3  |   4  |   5  |   |   6  |   7   |   8  |   9  |  10  | BKSP |
+    // | CTRL |  13  |  14  |  15  |  16  |  17  |   |  18  |  19   |  20  |  21  |  22  |      |
+    // | SHFT |  25  |  26  |  27  |  28  |  29  |   |  30  |  31   |  32  |  33  |  34  | ESC  |
+    //                         | 36 | 37 | 38 |         | 39 | 40  | 41 |
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            // -----------------------------------------------------------------------------------------
-            // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
-            // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-            // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-            //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+        base_layer {
 
             label = "Base";
             bindings = <
-  &kp TAB  &kp Q  &kp W     &kp E  &kp R    &kp T        &kp Y  &kp U      &kp I    &kp O     &kp P   &kp ESC
-&kp LCTRL  &kp A  &kp S     &kp D  &kp F    &kp G        &kp H  &kp J      &kp K    &kp L  &kp SEMI   &kp SQT
-&kp LSHFT  &kp Z  &kp X     &kp C  &kp V    &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp BSPC
-                         &kp LGUI  &mo 1  &kp RET    &kp SPACE  &td0       &kp RALT
+&kp TAB          &kp Q             &kp W             &kp E             &kp R             &kp T             &kp Y             &kp U             &kp I             &kp O             &kp P             &kp ESC
+&kp LCTRL        U_MT(LGUI, A)     U_MT(LALT, S)     U_MT(LCTRL, D)    U_MT(LSHFT, F)    &kp G             &kp H             U_MT(LSHFT, J)    U_MT(LCTRL, K)    U_MT(LALT, L)     U_MT(LGUI, SQT)   &kp FSLH
+&kp LSHFT        U_LT(U_BUTTON, Z) U_MT(RALT, X)     &kp C             &kp V             &kp B             &kp N             &kp M             &kp COMMA         U_MT(RALT, DOT)   U_LT(U_BUTTON, SLASH) &kp BSPC
+                                   U_LT(U_MEDIA, ESC) U_LT(U_NAV, SPACE) U_LT(U_MOUSE, TAB) U_LT(U_SYM, RET)  U_LT(U_NUM, BSPC) U_LT(U_FUN, DEL)
             >;
         };
 
         lower_layer {
-            // -----------------------------------------------------------------------------------------
-            // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-            // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-            // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-            //                    | GUI |     | SPC |   | ENT |     | ALT |
-
             label = "Lower";
             bindings = <
    &kp TAB        &kp N1        &kp N2        &kp N3        &kp N4        &kp N5        &kp N6      &kp N7    &kp N8  &kp N9     &kp N0    &trans
@@ -99,12 +100,6 @@
         };
 
         raise_layer {
-            // -----------------------------------------------------------------------------------------
-            // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
-            // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-            // | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-            //                    | GUI |     | SPC |   | ENT |     | ALT |
-
             label = "Raise";
             bindings = <
   &kp TAB  &kp EXCL    &kp AT  &kp HASH   &kp DLLR  &kp PRCNT    &kp CARET   &kp AMPS  &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
@@ -115,14 +110,13 @@
         };
 
         numpad_layer {
+            label = "Numpad";
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp KP_N7        &kp KP_N8        &kp KP_N9  &kp KP_MINUS    &kp KP_DIVIDE
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp KP_N4        &kp KP_N5  &kp KP_NUMBER_6   &kp KP_PLUS  &kp KP_MULTIPLY
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp KP_N1        &kp KP_N2        &kp KP_N3    &kp KP_DOT           &trans
                         &trans  &trans  &trans    &trans     &tog 0  &kp KP_NUMBER_0
             >;
-
-            label = "Numpad";
         };
     };
 };
